@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployer
+spec:
+  selector:
+    matchLabels:
+      app: deployer
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: deployer
+    spec:
+      terminationGracePeriodSeconds: 10
+      restartPolicy: Always
+      containers:
+        - name: deployer
+          image: onthertech/titan-deployer
+          imagePullPolicy: IfNotPresent
+          command: ["./deployer.sh"]
+          ports:
+            - containerPort: 8081
+              protocol: TCP
+          resources: {}
+          envFrom:
+            - configMapRef:
+                name: deployer
+            - secretRef:
+                name: secret
+          volumeMounts:
+            - name: deployer-volume
+              mountPath: /opt/optimism/packages/contracts/genesis
+      volumes:
+        - name: deployer-volume
+          persistentVolumeClaim:
+            claimName: deployer-pvc
