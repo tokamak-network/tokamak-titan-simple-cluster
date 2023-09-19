@@ -8,7 +8,7 @@ data:
   ETHEREUM_JSONRPC_VARIANT: "geth"
   ETHEREUM_JSONRPC_HTTP_URL: "http://l2geth-svc:8545"
   # ETHEREUM_JSONRPC_FALLBACK_HTTP_URL:
-  DATABASE_URL: "postgresql://postgres:postgres@postgresql-svc:5432/blockscout-hardhat"
+  DATABASE_URL: "postgresql://postgres:postgres@postgresql-svc.postgresql.svc:5432/local"
   ETHEREUM_JSONRPC_TRACE_URL: "http://l2geth-svc:8545"
   # ETHEREUM_JSONRPC_FALLBACK_TRACE_URL:
   # ETHEREUM_JSONRPC_HTTP_TIMEOUT:

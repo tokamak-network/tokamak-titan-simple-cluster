@@ -40,6 +40,9 @@ spec:
               value: ""
             - name: POSTGRES_HOST_AUTH_METHOD
               value: "trust"
+          envFrom:
+            - configMapRef:
+                name: postgresql-config
       volumes:
         - name: postgresql-volume
           persistentVolumeClaim:
