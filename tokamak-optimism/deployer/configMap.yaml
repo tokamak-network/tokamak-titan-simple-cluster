@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: deployer
+data:
+  CONTRACTS_RPC_URL: "http://l1chain-svc:8545"
+  CONTRACTS_TARGET_NETWORK: local

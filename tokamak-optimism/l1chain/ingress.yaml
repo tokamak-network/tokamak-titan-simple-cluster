@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-l1chain
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: l1.local.tokamak.network
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: l1chain-svc
+            port:
+              number: 8545
