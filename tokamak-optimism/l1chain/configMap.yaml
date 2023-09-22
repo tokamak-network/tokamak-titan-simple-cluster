@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: l1chain
 data:
-  FORK_URL:
-  FORK_STARTING_BLOCK:
+  FORK_URL: ""
+  FORK_STARTING_BLOCK: ""
