@@ -13,7 +13,7 @@ provider "aws" {
   region  = "ap-northeast-2"
 }
 
-resource "aws_instance" "example_server" {
+resource "aws_instance" "simple_cluster_server" {
   ami           = var.base_ami
   instance_type = var.instance_type
   key_name = aws_key_pair.simple_cluster_keypair.key_name
