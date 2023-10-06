@@ -25,22 +25,22 @@ resource "aws_instance" "simple_cluster_server" {
 
   connection {
     type = "ssh"
-	host = self.public_ip
-	user = "ubuntu"
-	private_key = file("./key/${var.key_name}.pem")
+	  host = self.public_ip
+	  user = "ubuntu"
+	  private_key = file("./key/${var.key_name}.pem")
   }
 
 
   provisioner "file" {
     source = "provision_script.sh"
-	destination = "/tmp/provision_script.sh"
+	  destination = "/tmp/provision_script.sh"
   }
 
   provisioner "remote-exec" {
     inline = [
       "chmod +x /tmp/provision_script.sh",
-	  "/tmp/provision_script.sh",
-	]
+	    "/tmp/provision_script.sh ${var.git_user} ${var.git_email}",
+	  ]
   }
 
   tags = {

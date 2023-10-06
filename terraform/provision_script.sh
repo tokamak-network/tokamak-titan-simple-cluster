@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# config git user
+git config --global user.name $1
+git config --global user.email $2
+
+git config user.name
+git config user.email
+
 # install docker
 # Add Docker's official GPG key:
 sudo apt-get update -y
@@ -10,9 +17,9 @@ sudo chmod a+r /etc/apt/keyrings/docker.gpg
 
 # Add the repository to Apt sources:
 echo \
-    "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
   "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" |
-    sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
+  sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
 sudo apt-get update -y
 sudo apt-get -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
@@ -27,6 +34,8 @@ echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 kubectl version --client
 
-# fix issue
+# docker group issue & minikube start
 sudo usermod -aG docker ubuntu
-newgrp docker
+newgrp docker <<EOF
+minikube start --driver=docker --cpus=max --memory=8192
+EOF

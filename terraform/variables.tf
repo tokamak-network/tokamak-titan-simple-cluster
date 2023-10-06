@@ -14,3 +14,11 @@ variable "instance_type" {
 variable "key_name" {
   description = "key pair name"
 }
+
+variable "git_user" {
+  description = "git user name"
+}
+
+variable "git_email" {
+  description = "git user email"
+}
