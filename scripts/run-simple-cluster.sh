@@ -75,7 +75,7 @@ function apply_resource() {
 }
 
 case $TASK in
-create)
+start)
     for resource in ${PRERUN_RESOURCES[@]}; do
         if [[ $(check_resource $TOKAMAK_TITAN_PATH $resource) == "false" ]]; then
             apply_resource $TOKAMAK_TITAN_PATH $resource

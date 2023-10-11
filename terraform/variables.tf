@@ -4,6 +4,7 @@ variable "service_name" {
 
 variable "base_ami" {
   description = "base ami"
+  default = "ami-0c9c942bd7bf113a2"
 }
 
 variable "instance_type" {
