@@ -74,6 +74,16 @@ function apply_resource() {
     unset_manifests
 }
 
+function delete_resource() {
+    local ns
+    [[ $2 == "storage" ]] && ns="local-path-storage" || ns=$NAMESPACE
+    set_manifests $1 $2
+    for manifest in ${MANIFESTS[@]}; do
+        kubectl -n $ns delete -f $WORK_PATH/$manifest
+    done
+    unset_manifests
+}
+
 case $TASK in
 start)
     for resource in ${PRERUN_RESOURCES[@]}; do
@@ -81,6 +91,20 @@ start)
             apply_resource $TOKAMAK_TITAN_PATH $resource
         fi
     done
+
+    for resource in ${TOKAMAK_TITAN_RESOURCES[@]}; do
+        apply_resource $TOKAMAK_TITAN_PATH $resource
+    done
     ;;
-delete) ;;
+delete) 
+    for resource in ${TOKAMAK_TITAN_RESOURCES[@]}; do
+        delete_resource $TOKAMAK_TITAN_PATH $resource
+    done
+
+    for resource in ${PRERUN_RESOURCES[@]}; do
+        if [[ $(check_resource $TOKAMAK_TITAN_PATH $resource) == "true" ]]; then
+            delete_resource $TOKAMAK_TITAN_PATH $resource
+        fi
+    done
+;;
 esac

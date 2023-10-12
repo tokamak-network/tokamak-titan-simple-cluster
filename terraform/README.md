@@ -125,7 +125,7 @@ aws sts get-caller-identity
 {
   "UserId": "XXXXX",
   "Account": "1234567891011",
-  "Arn": "arn:aws:iam::123456781011:user/terraform-101"
+  "Arn": "arn:aws:iam::123456781011:user/test-user"
 }
 ```
 
