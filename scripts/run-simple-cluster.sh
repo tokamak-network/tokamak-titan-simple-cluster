@@ -51,14 +51,36 @@ function apply_resource() {
     kubectl -n $ns apply -f $1/$2
 }
 
+# $1 = PATH, $2 = resource
 function delete_resource() {
     local ns
     [[ $2 == "storage" ]] && ns="local-path-storage" || ns=$NAMESPACE
     kubectl -n $ns delete -f $1/$2
 }
 
+# $1 = addons name
+function enable_addons() {
+    local addon_name=$1
+    if [[ $(minikube addons list | awk -v a="$addon_name" '{if($2==a) print $6}') == "disabled" ]]; then
+        minikube addons enable $addon_name
+    fi
+}
+
+function add_dns() {
+    local dns="nameserver $(minikube ip)"
+    local exist_minikube_dns=$(awk -v dns="$dns" '{if($0==dns) print "true"}' /etc/resolv.conf)
+    if [[ $exist_minikube_dns != "true" ]]; then
+        echo $dns | sudo tee -a /etc/resolvconf/resolv.conf.d/tail
+        sudo resolvconf -u
+    fi
+}
+
 case $TASK in
 start)
+    enable_addons ingress
+    enable_addons ingress-dns
+    add_dns
+
     if [[ $SERVICE == "titan"  ]]; then
         for resource in ${TOKAMAK_TITAN_RESOURCES[@]}; do
             apply_resource $TOKAMAK_TITAN_PATH $resource
