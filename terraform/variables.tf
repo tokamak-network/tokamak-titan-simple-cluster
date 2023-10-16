@@ -23,3 +23,13 @@ variable "git_user" {
 variable "git_email" {
   description = "git user email"
 }
+
+variable "minikube_cpus" {
+  description = "minikube cpus value"
+  default = "4"
+}
+
+variable "minikube_memory" {
+  description = "minikube memorys value"
+  default = "4096"
+}

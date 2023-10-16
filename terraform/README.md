@@ -125,7 +125,7 @@ aws sts get-caller-identity
 {
   "UserId": "XXXXX",
   "Account": "1234567891011",
-  "Arn": "arn:aws:iam::123456781011:user/terraform-101"
+  "Arn": "arn:aws:iam::123456781011:user/test-user"
 }
 ```
 
@@ -139,12 +139,49 @@ Before provisioning EC2, you need to set up the instance name, type, os etc.
 mv terraform.tfvars.exmaple terraform.tfvars
 ```
 
-2. Fill in `service_name`, `base_ami`, `instance_type`, `key_name` values
+2. Fill in `service_name`, `base_ami`, `instance_type`, `key_name`, `minikube_cpus`, `minikube_memory` values
    - For instance types, see the following: [Instance types](https://ap-northeast-2.console.aws.amazon.com/ec2/home?region=ap-northeast-2#InstanceTypes:)
    - For ami, see the following: [Amazon Machine Images](https://ap-northeast-2.console.aws.amazon.com/ec2/home?region=ap-northeast-2#Images:visibility=public-images)
 
-### Run terraform
+### Run ec2 with terraform
 
 1. Enter the `terraform init` command
+   ```bash
+   terraform init
+   ```
 2. Enter the `terraform plan` command
+   ```bash
+   terraform plan
+   ```
 3. Enter the `terraform apply` command
+
+   ```bash
+   terraform apply
+   ```
+
+   if `terraform apply` command is successful, you should see Outputs like this:
+
+   ```bash
+   Apply complete! Resources: 1 imported, 5 added, 0 changed, 0 destroyed.
+
+   Outputs:
+
+   connect_instance = "ssh -i simple_cluster.pem ubuntu@3.38.98.152"
+   instance_id = "i-0e6be5aa0e9fbbe68"
+   instance_public_ip = "3.38.98.152"
+   ```
+
+   then, copy connect_instance commands and connect your ec2 instance
+
+   ```bash
+   ssh -i simple_cluster.pem ubuntu@3.38.98.152
+   ```
+
+### Delete ec2
+
+We recommend deleting instance after testing as you may be charged.
+
+1. Enter the `terraform destroy` command
+   ```bash
+   terraform destroy
+   ```

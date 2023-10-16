@@ -30,6 +30,10 @@ resource "aws_instance" "simple_cluster_server" {
 	  private_key = file("./key/${var.key_name}.pem")
   }
 
+  provisioner "file" {
+    source = "../../tokamak-titan-simple-cluster"
+    destination = "/home/ubuntu"
+  }
 
   provisioner "file" {
     source = "provision_script.sh"
@@ -39,7 +43,7 @@ resource "aws_instance" "simple_cluster_server" {
   provisioner "remote-exec" {
     inline = [
       "chmod +x /tmp/provision_script.sh",
-	    "/tmp/provision_script.sh ${var.git_user} ${var.git_email}",
+	    "/tmp/provision_script.sh ${var.git_user} ${var.git_email} ${var.minikube_cpus} ${var.minikube_memory}",
 	  ]
   }
 

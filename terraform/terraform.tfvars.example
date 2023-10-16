@@ -3,3 +3,5 @@ service_name = "example-cluster"
 base_ami = "ami-0c9c942bd7bf113a2" # default Ubuntu, 22.04 LTS
 instance_type = "t2.micro" # default t2.micro However, in order to run minikube, you must select an instance type that satisfies the minimum 2 cpus, 2 Gibs.
 key_name = "example-key-name"
+minikube_cpus = "max" # default 4
+minikube_memory = "8192" # default 4096

@@ -34,8 +34,11 @@ echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 kubectl version --client
 
+# install resolvconf
+sudo apt-get install resolvconf -y
+
 # docker group issue & minikube start
 sudo usermod -aG docker ubuntu
 newgrp docker <<EOF
-minikube start --driver=docker --cpus=max --memory=8192
+minikube start --driver=docker --cpus=$3 --memory=$4
 EOF
