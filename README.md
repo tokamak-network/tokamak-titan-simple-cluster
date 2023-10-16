@@ -12,3 +12,10 @@
 If you own an AWS account and want to use EC2, go to [here](./terraform/README.md)
 
 ## Let's start Titan network
+
+### 1. Titan Network Node
+
+**Start Node**
+
+
+### 2. Titan Apps
