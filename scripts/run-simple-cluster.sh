@@ -43,6 +43,7 @@ WORK_PATH=""
 TOKAMAK_TITAN_RESOURCES=("secret" "storage" "l1chain" "deployer" "data-transport-layer" "l2geth" "batch-submitter" "relayer")
 APPS_BLOCKSOCUT_RESOURCES=("postgresql" "sig-provider" "smart-contract-verifier" "visualizer" ".")
 APPS_GATEWAY_RESOURCES=(".")
+EXPORT_SERVICE_RESOURCES=("l1chain-svc" "l2geth-svc" "blockscout-svc" "app-gateway-svc")
 
 # $1 = PATH, $2 = resource
 function apply_resource() {
@@ -109,6 +110,41 @@ delete)
         for resource in ${APPS_GATEWAY_RESOURCES[@]}; do
             delete_resource $APPS_PATH/$SERVICE $resource
         done
+    fi
+    ;;
+service)
+    port=8001
+    ip=$(wget -qO- http://instance-data/latest/meta-data/public-ipv4)
+    for service in ${EXPORT_SERVICE_RESOURCES[@]}; do
+        if kubectl -n $NAMESPACE get svc $service >/dev/null 2>&1; then
+            case $service in
+            l1chain-svc)
+                echo L1 Chian RPC address : http://$ip:$port
+                kubectl port-forward --address 0.0.0.0 svc/$service $port:8545 >> /dev/null & \
+            ;;
+            l2geth-svc)
+                echo L2 Geth RPC address : http://$ip:$port
+                kubectl port-forward --address 0.0.0.0 svc/$service $port:8545 >> /dev/null & \
+            ;; 
+            blockscout-svc)
+                echo Blockscout address : http://$ip:$port
+                kubectl port-forward --address 0.0.0.0 svc/$service $port:80 >> /dev/null & \
+            ;;
+            app-gateway-svc)
+                echo Gateway address : http://$ip:$port
+                kubectl port-forward --address 0.0.0.0 svc/$service $port:80 >> /dev/null & \
+            ;;
+            esac
+            port=$(( port + 1 ))
+        fi
+    done
+    svc_pid=$(ps -fu | grep 'kubectl port-forward' | grep -v "grep" | awk '{print $2}')
+    if [[ -z $svc_pid ]] ; then
+            echo There is not exist service
+        else
+            echo Press CTRL-C to stop server
+            wait
+            kill $svc_pid
     fi
     ;;
 esac
