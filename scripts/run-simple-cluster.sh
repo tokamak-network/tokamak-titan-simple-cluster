@@ -21,7 +21,7 @@ while [ $# -gt 0 ]; do
         fi
         SERVICE=$2
         shift 2
-    ;;
+        ;;
     *)
         POSITION+=($1)
         shift
@@ -30,7 +30,7 @@ while [ $# -gt 0 ]; do
 done
 set -- "${POSITION[@]}"
 
-if [[ $NAMESPACE != "default" ]] && ! kubectl get ns $NAMESPACE > /dev/null 2>&1; then
+if [[ $NAMESPACE != "default" ]] && ! kubectl get ns $NAMESPACE >/dev/null 2>&1; then
     kubectl create ns $NAMESPACE
 fi
 
@@ -63,6 +63,7 @@ function enable_addons() {
     local addon_name=$1
     if [[ $(minikube addons list | awk -v a="$addon_name" '{if($2==a) print $6}') == "disabled" ]]; then
         minikube addons enable $addon_name
+        [[ $addon_name == "ingress" ]] && echo Waiting $addon_name addon completed run... && sleep 15
     fi
 }
 
@@ -81,7 +82,7 @@ start)
     enable_addons ingress-dns
     add_dns
 
-    if [[ $SERVICE == "titan"  ]]; then
+    if [[ $SERVICE == "titan" ]]; then
         for resource in ${TOKAMAK_TITAN_RESOURCES[@]}; do
             apply_resource $TOKAMAK_TITAN_PATH $resource
         done
@@ -94,9 +95,9 @@ start)
             apply_resource $APPS_PATH/$SERVICE $resource
         done
     fi
-;;
+    ;;
 delete)
-    if [[ $SERVICE == "titan"  ]]; then
+    if [[ $SERVICE == "titan" ]]; then
         for resource in ${TOKAMAK_TITAN_RESOURCES[@]}; do
             delete_resource $TOKAMAK_TITAN_PATH $resource
         done
@@ -109,5 +110,5 @@ delete)
             delete_resource $APPS_PATH/$SERVICE $resource
         done
     fi
-;;
+    ;;
 esac

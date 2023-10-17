@@ -34,6 +34,11 @@ echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 kubectl version --client
 
+sudo apt-get install bash-completion -y
+kubectl completion bash | sudo tee /etc/bash_completion.d/kubectl >/dev/null
+
+chmod u+x /home/ubuntu/tokamak-titan-simple-cluster/scripts/run-simple-cluster.sh
+
 # install resolvconf
 sudo apt-get install resolvconf -y
 
