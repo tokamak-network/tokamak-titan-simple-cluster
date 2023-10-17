@@ -13,19 +13,19 @@ data:
           "name": "Local Hardhat",
           "type": "L1",
           "chainId": 31337,
-          "endpoint": "http://localhost:9545",
+          "endpoint": "http://l1chain-svc:8545",
           "oppositeChainId": null,
           "iconURL": "https://cryptologos.cc/logos/ethereum-eth-logo.png?v=010",
-          "explorer": "http://localhost:8888/tx/"
+          "explorer": ""
         },
         {
           "name": "Local Tokamak",
           "type": "L2",
-          "chainId": 2090,
-          "endpoint": "http://localhost:8545",
+          "chainId": 17,
+          "endpoint": "http://l2geth-svc:8545",
           "oppositeChainId": 31337,
           "iconURL": "/logos/tokamak-symbol.svg",
-          "explorer": "http://localhost:8080/tx/"
+          "explorer": "http://blockscout-svc/tx/"
         }
       ],
       "SUPPORTED_TOKENS": [
@@ -43,7 +43,7 @@ data:
         },
         {
           "id": "ethereum",
-          "chainId": 2090,
+          "chainId": 17,
           "address": null,
           "name": "ETH",
           "symbol": "ETH",
