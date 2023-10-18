@@ -125,7 +125,7 @@ We provide a Test account :
 | :-----: | :----------------------------------------------------------------- |
 | Test#1  | 0xa6aecc98b63bafb0de3b29ae9964b14acb4086057808be29f90150214ebd4a0f |
 
-### 2. Titan Apps
+## 2. Titan Apps
 
 Blockscout : block explorer for titan
 
