@@ -113,7 +113,7 @@ Press CTRL-C to stop server
 
 | Titan Network   |                                              |
 | --------------- | -------------------------------------------- |
-| Titan RPC URL   | l1geth.local.tokamak.network or exported URL |
+| Titan RPC URL   | l2geth.local.tokamak.network or exported URL |
 | ChainId         | 17                                           |
 | Currency symbol | ETH                                          |
 
