@@ -79,7 +79,7 @@ function add_dns() {
 
 function check_minikube() {
     if ! minikube status >/dev/null 2>&1; then
-        if which minikube >/dev/nul 2>&1; then
+        if which minikube >/dev/null 2>&1; then
             echo 'Could you start minikube? [Y/N]'
             read input
             if [[ $input == 'Y' ]]; then

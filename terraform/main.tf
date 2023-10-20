@@ -43,7 +43,7 @@ resource "aws_instance" "simple_cluster_server" {
   provisioner "remote-exec" {
     inline = [
       "chmod +x /tmp/provision_script.sh",
-	    "/tmp/provision_script.sh ${var.git_user} ${var.git_email} ${var.minikube_cpus} ${var.minikube_memory}",
+	    "/tmp/provision_script.sh ${var.git_user} ${var.git_email}",
 	  ]
   }
 
