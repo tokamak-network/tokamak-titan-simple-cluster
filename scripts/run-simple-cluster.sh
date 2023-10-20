@@ -114,11 +114,11 @@ start)
         done
     elif [[ $SERVICE == "blockscout" ]]; then
         for resource in ${APPS_BLOCKSOCUT_RESOURCES[@]}; do
-            apply_resource $APPS_PATH/$SERVICE $resource
+            apply_resource $APPS_PATH/blockscout $resource
         done
     elif [[ $SERVICE == "gateway" ]]; then
         for resource in ${APPS_GATEWAY_RESOURCES[@]}; do
-            apply_resource $APPS_PATH/$SERVICE $resource
+            apply_resource $APPS_PATH/gateway $resource
         done
     elif [[ $SERVICE == "all" ]]; then
         for resource in ${TOKAMAK_TITAN_RESOURCES[@]}; do
@@ -126,11 +126,11 @@ start)
         done
 
         for resource in ${APPS_BLOCKSOCUT_RESOURCES[@]}; do
-            apply_resource $APPS_PATH/$SERVICE $resource
+            apply_resource $APPS_PATH/blockscout $resource
         done
 
         for resource in ${APPS_GATEWAY_RESOURCES[@]}; do
-            apply_resource $APPS_PATH/$SERVICE $resource
+            apply_resource $APPS_PATH/gateway $resource
         done
     fi
     ;;
@@ -145,7 +145,19 @@ delete)
         done
     elif [[ $SERVICE == "gateway" ]]; then
         for resource in ${APPS_GATEWAY_RESOURCES[@]}; do
-            delete_resource $APPS_PATH/$SERVICE $resource
+            delete_resource $APPS_PATH/gateway $resource
+        done
+    elif [[ $SERVICE == "all" ]]; then
+        for resource in ${TOKAMAK_TITAN_RESOURCES[@]}; do
+            delete_resource $TOKAMAK_TITAN_PATH $resource
+        done
+
+        for resource in ${APPS_BLOCKSOCUT_RESOURCES[@]}; do
+            delete_resource $APPS_PATH/blockscout $resource
+        done
+
+        for resource in ${APPS_GATEWAY_RESOURCES[@]}; do
+            delete_resource $APPS_PATH/gateway $resource
         done
     fi
     ;;
