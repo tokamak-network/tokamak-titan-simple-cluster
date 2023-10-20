@@ -77,6 +77,31 @@ function add_dns() {
     fi
 }
 
+function check_minikube() {
+    if ! minikube status >/dev/null 2>&1; then
+        if which minikube >/dev/nul 2>&1; then
+            echo 'Could you start minikube? [Y/N]'
+            read input
+            if [[ $input == 'Y' ]]; then
+                echo 'Please input Number of CPUs allocated to minikube (ex. 2): '
+                read cpus
+                echo 'Please input Amount of RAM to allocate to minikube (ex. 4096): '
+                read memory
+                minikube start --driver=docker --cpus=$cpus --memory=$memory
+            fi
+        else
+            echo 'minikube is not installed'
+            echo 'Could you install minikube? [Y/N]'
+            read input
+            if [[ $input == 'Y' ]]; then
+                source install_minikube.sh
+            fi
+        fi
+    fi
+}
+
+check_minikube
+
 case $TASK in
 start)
     enable_addons ingress
@@ -92,6 +117,18 @@ start)
             apply_resource $APPS_PATH/$SERVICE $resource
         done
     elif [[ $SERVICE == "gateway" ]]; then
+        for resource in ${APPS_GATEWAY_RESOURCES[@]}; do
+            apply_resource $APPS_PATH/$SERVICE $resource
+        done
+    elif [[ $SERVICE == "all" ]]; then
+        for resource in ${TOKAMAK_TITAN_RESOURCES[@]}; do
+            apply_resource $TOKAMAK_TITAN_PATH $resource
+        done
+
+        for resource in ${APPS_BLOCKSOCUT_RESOURCES[@]}; do
+            apply_resource $APPS_PATH/$SERVICE $resource
+        done
+
         for resource in ${APPS_GATEWAY_RESOURCES[@]}; do
             apply_resource $APPS_PATH/$SERVICE $resource
         done

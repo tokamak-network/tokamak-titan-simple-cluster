@@ -9,7 +9,7 @@ variable "base_ami" {
 
 variable "instance_type" {
   description = "type"
-  default = "t2.micro"
+  default = "t2.medium"
 }
 
 variable "key_name" {
@@ -22,14 +22,4 @@ variable "git_user" {
 
 variable "git_email" {
   description = "git user email"
-}
-
-variable "minikube_cpus" {
-  description = "minikube cpus value"
-  default = "4"
-}
-
-variable "minikube_memory" {
-  description = "minikube memorys value"
-  default = "4096"
 }
