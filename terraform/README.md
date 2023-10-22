@@ -55,13 +55,20 @@ aws-cli/2.10.0 Python/3.11.2 Windows/10 exe/AMD64 prompt/off
 
 **Install a specific version by URL**
 
-- latest version terraform: https://www.terraform.io/downloads.html
+#### Latest version install
+
+- latest version terraform(recommanded): https://www.terraform.io/downloads.html
+
+#### Specific version install
+
 - previous version terraform: https://releases.hashicorp.com/terraform/
 - Move the binary file you installed to /usr/local/bin and you'll be able to use the terraform command.
 
 ```bash
-curl -sO https://releases.hashicorp.com/terraform/1.6.1/terraform_1.6.1_darwin_amd64.zip
-unzip terraform_1.6.1_darwin_amd64.zip
+# curl -sO {link of specific terraform version}
+# This example command is terraform version 1.6.2 at linux
+curl -sO https://releases.hashicorp.com/terraform/1.6.2/terraform_1.6.2_linux_amd64.zip
+unzip terraform_1.6.2_linux_amd64.zip
 mv terraform /usr/local/bin
 terraform --version
 Terraform v1.6.1
