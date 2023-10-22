@@ -85,7 +85,7 @@ Response:
 #### Export server
 
 If you are running nodes on AWS EC2 than you will need to export the server
-**(If you are running locally, skip here and use [domain](####server-domain))**
+**(If you are running locally, skip here and use [domain](#server-domain))**
 
 Command:
 
@@ -193,7 +193,7 @@ type="application/json">{"props":{"pageProps":{}},"page":"/","query":{},"buildId
 #### Export server
 
 If you are running nodes on AWS EC2 than you will need to export the server
-**(If you are running locally, skip here and use [domain](####apps-server-domain))**
+**(If you are running locally, skip here and use [domain](#apps-server-domain))**
 
 Command:
 
