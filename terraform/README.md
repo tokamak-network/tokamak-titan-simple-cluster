@@ -146,7 +146,7 @@ Before provisioning EC2, you need to set up the instance name, type, os etc.
 mv terraform.tfvars.exmaple terraform.tfvars
 ```
 
-2. Fill in `service_name`, `base_ami`, `instance_type`, `key_name`, `minikube_cpus`, `minikube_memory` values
+2. Fill in `service_name`, `base_ami`, `instance_type`, `key_name` values
    - For instance types, see the following: [Instance types](https://ap-northeast-2.console.aws.amazon.com/ec2/home?region=ap-northeast-2#InstanceTypes:)
    - For ami, see the following: [Amazon Machine Images](https://ap-northeast-2.console.aws.amazon.com/ec2/home?region=ap-northeast-2#Images:visibility=public-images)
 
