@@ -11,6 +11,10 @@
 
 If you own an AWS account and want to use EC2, go to [here](./terraform/README.md)
 
+Also, we provide install kubectl & minikube in this script
+
+Just run and follow this script
+
 ## Commands
 
 ```

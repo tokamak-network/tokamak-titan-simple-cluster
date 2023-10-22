@@ -85,9 +85,11 @@ function check_minikube() {
             echo 'Could you start minikube? [Y/N]'
             read input
             if [[ $input == 'Y' ]]; then
-                echo 'Please input Number of CPUs allocated to minikube (ex. 2): '
+                echo '※ We recommanded minimum 2 cpus for running simplecluster ※'
+                echo 'Please input Number of CPUs allocated to minikube (ex. 2) :'
                 read cpus
-                echo 'Please input Amount of RAM to allocate to minikube (ex. 4096): '
+                echo '※ We recommanded minimum 4096 memory for running simplecluster ※'
+                echo 'Please input Amount of RAM to allocate to minikube (ex. 4096) :'
                 read memory
                 minikube start --driver=docker --cpus=$cpus --memory=$memory
             fi
