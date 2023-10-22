@@ -72,6 +72,7 @@ function add_dns() {
     local dns="nameserver $(minikube ip)"
     local exist_minikube_dns=$(awk -v dns="$dns" '{if($0==dns) print "true"}' /etc/resolv.conf)
     if [[ $exist_minikube_dns != "true" ]]; then
+        which resolvconf >/dev/null 2>&1 || sudo apt-get install resolvconf -y >/dev/null 2>&1
         echo $dns | sudo tee -a /etc/resolvconf/resolv.conf.d/tail
         sudo resolvconf -u
     fi
@@ -80,6 +81,7 @@ function add_dns() {
 function check_minikube() {
     if ! minikube status >/dev/null 2>&1; then
         if which minikube >/dev/null 2>&1; then
+            echo 'minikube is not running'
             echo 'Could you start minikube? [Y/N]'
             read input
             if [[ $input == 'Y' ]]; then
