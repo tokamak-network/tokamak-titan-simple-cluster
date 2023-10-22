@@ -27,7 +27,7 @@ TASK:
 
 OPTION:
   -n, -namespace    Set namespace
-  -s, -service      Set the service to run (titan, blockscout, gateway). default titan
+  -s, -service      Set the service to run (titan, blockscout, gateway, all). default titan
 ```
 
 ## 1. Titan Network Node
