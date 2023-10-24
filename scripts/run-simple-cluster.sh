@@ -92,6 +92,8 @@ function check_minikube() {
                 echo 'Please input Amount of RAM to allocate to minikube (ex. 4096) :'
                 read memory
                 minikube start --driver=docker --cpus=$cpus --memory=$memory
+            else
+                exit 1
             fi
         else
             echo 'minikube is not installed'
@@ -99,12 +101,16 @@ function check_minikube() {
             read input
             if [[ $input == 'Y' ]]; then
                 source install_minikube.sh
+            else
+                exit 1
             fi
         fi
     fi
 }
 
-check_minikube
+if check_minikube; then
+    exit 1
+fi
 
 case $TASK in
 start)
