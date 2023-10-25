@@ -68,14 +68,25 @@ function enable_addons() {
     fi
 }
 
-function add_dns() {
+function config_dns() {
     local dns="nameserver $(minikube ip)"
     local exist_minikube_dns=$(awk -v dns="$dns" '{if($0==dns) print "true"}' /etc/resolv.conf)
-    if [[ $exist_minikube_dns != "true" ]]; then
-        which resolvconf >/dev/null 2>&1 || sudo apt-get install resolvconf -y >/dev/null 2>&1
-        echo $dns | sudo tee -a /etc/resolvconf/resolv.conf.d/tail
-        sudo resolvconf -u
-    fi
+    which resolvconf >/dev/null 2>&1 || sudo apt-get install resolvconf -y >/dev/null 2>&1
+    case $1 in
+    on)
+        if [[ $exist_minikube_dns != "true" ]]; then
+            echo $dns | sudo tee -a /etc/resolvconf/resolv.conf.d/tail
+            sudo resolvconf -u
+        fi
+        ;;
+    off)
+        if [[ $exist_minikube_dns == "true" ]]; then
+            cat /etc/resolvconf/resolv.conf.d/tail | grep -v $dns | sudo tee /etc/resolvconf/resolv.conf.d/tail
+            sudo resolvconf -u
+        fi
+        ;;
+    esac
+
 }
 
 function check_minikube() {
@@ -108,15 +119,13 @@ function check_minikube() {
     fi
 }
 
-if check_minikube; then
-    exit 1
-fi
+check_minikube
 
 case $TASK in
 start)
     enable_addons ingress
     enable_addons ingress-dns
-    add_dns
+    config_dns on
 
     if [[ $SERVICE == "titan" ]]; then
         for resource in ${TOKAMAK_TITAN_RESOURCES[@]}; do
@@ -170,6 +179,21 @@ delete)
             delete_resource $APPS_PATH/gateway $resource
         done
     fi
+
+    config_dns off
+    echo 'Could you stop/delete minikube? [stop/delete/N]'
+    read input
+    case $input in
+    stop)
+        minikube stop
+        ;;
+    delete)
+        minikube delete
+        ;;
+    N)
+        exit 0
+        ;;
+    esac
     ;;
 export)
     port=8001
