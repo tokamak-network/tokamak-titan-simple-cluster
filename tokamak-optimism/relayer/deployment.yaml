@@ -24,4 +24,4 @@ spec:
             - configMapRef:
                 name: relayer
             - secretRef:
-                name: secret
+                name: titan-secret

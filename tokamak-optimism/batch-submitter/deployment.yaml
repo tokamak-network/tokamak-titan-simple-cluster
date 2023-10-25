@@ -27,4 +27,4 @@ spec:
             - configMapRef:
                 name: batch-submitter
             - secretRef:
-                name: secret
+                name: titan-secret

@@ -27,7 +27,7 @@ spec:
             - configMapRef:
                 name: deployer
             - secretRef:
-                name: secret
+                name: titan-secret
           volumeMounts:
             - name: deployer-volume
               mountPath: /opt/optimism/packages/contracts/genesis
