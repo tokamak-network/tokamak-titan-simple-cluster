@@ -6,6 +6,7 @@
 
 ## Prerequisite
 
+- Linux Server(Recommend Ubuntu)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
 - [minikube](https://minikube.sigs.k8s.io/docs/start/)
 
